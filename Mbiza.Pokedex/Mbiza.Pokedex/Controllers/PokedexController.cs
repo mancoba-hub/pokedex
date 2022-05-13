@@ -43,7 +43,7 @@ namespace Mbiza.Pokedex
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<string>> Get()
+        public async Task<IEnumerable<ModelPokemon>> Get()
         {
             try
             {

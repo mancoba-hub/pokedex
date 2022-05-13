@@ -55,12 +55,15 @@ namespace Mbiza.Pokedex
         /// <param name="limit"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<string>> GetPokemonList(int limit, int offset)
+        public async Task<IEnumerable<ModelPokemon>> GetPokemonList(int limit, int offset)
         {
+            List<ModelPokemon> pokemons = new List<ModelPokemon>();
             var pokemonList = await _pokeApiClient.GetPokemonList(limit, offset);
-            var js = JsonSerializer.Serialize(pokemonList);
-            Console.WriteLine(js);
-            return pokemonList.Select(x => x.Name);
+            foreach(var pokemon in pokemonList)
+            {
+                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
+            }
+            return pokemons;
         }
 
         #endregion

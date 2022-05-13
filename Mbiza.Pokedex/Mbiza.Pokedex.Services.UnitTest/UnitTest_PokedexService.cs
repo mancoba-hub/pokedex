@@ -41,7 +41,7 @@ namespace Mbiza.Pokedex.Services.UnitTest
             //Arrange
             int limit = 5;
             int offset = 0;
-            _pokedexServiceMock.Setup(x => x.GetPokemonList(It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(It.IsAny<IEnumerable<string>>()));
+            _pokedexServiceMock.Setup(x => x.GetPokemonList(It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(It.IsAny<IEnumerable<ModelPokemon>>()));
 
             var pokemonList = GetPokemonList();
 
