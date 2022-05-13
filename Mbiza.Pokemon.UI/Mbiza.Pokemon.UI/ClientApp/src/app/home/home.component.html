@@ -1,0 +1,9 @@
+<table *ngIf="Pokemons && Pokemons.length > 0">
+    <tbody>
+        <tr *ngFor="let pokemon of Pokemons; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{pokemon.id}}</td>
+            <td>{{pokemon.name}}</td>
+        </tr>
+    </tbody>
+</table>
