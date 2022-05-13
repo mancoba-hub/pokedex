@@ -101,28 +101,28 @@ namespace Mbiza.Pokedex.UnitTests
         /// Gets the pokemon list
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<string> GetPokemonList()
+        private IEnumerable<ModelPokemon> GetPokemonList()
         {
-            return new List<string>
+            return new List<ModelPokemon>
             {
-                "ivysaur",
-                "venusaur",
-                "charmander",
-                "charmeleon",
-                "charizard",
-                "squirtle",
-                "wartortle",
-                "blastoise",
-                "caterpie",
-                "metapod",
-                "butterfree",
-                "weedle",
-                "kakuna",
-                "beedrill",
-                "pidgey",
-                "pidgeotto",
-                "pidgeot",
-                "rattata"
+                new ModelPokemon { Name = "ivysaur" },
+                new ModelPokemon { Name = "venusaur"},
+                new ModelPokemon { Name = "charmander"},
+                new ModelPokemon { Name = "charmeleon"},
+                new ModelPokemon { Name = "charizard"},
+                new ModelPokemon { Name = "squirtle"},
+                new ModelPokemon { Name = "wartortle"},
+                new ModelPokemon { Name = "blastoise"},
+                new ModelPokemon { Name = "caterpie"},
+                new ModelPokemon { Name = "metapod"},
+                new ModelPokemon { Name = "butterfree"},
+                new ModelPokemon { Name = "weedle"},
+                new ModelPokemon { Name = "kakuna"},
+                new ModelPokemon { Name = "beedrill"},
+                new ModelPokemon { Name = "pidgey"},
+                new ModelPokemon { Name = "pidgeotto"},
+                new ModelPokemon { Name = "pidgeot"},
+                new ModelPokemon { Name = "rattata"}
             };
         }
 
