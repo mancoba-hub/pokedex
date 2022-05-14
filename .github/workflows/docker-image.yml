@@ -14,7 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        context: ./
     - name: Build the Docker image      
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build https://github.com/mancoba-hub/pokedex/tree/master/Mbiza.Pokedex/Mbiza.Pokedex --file Dockerfile --tag my-image-name:$(date +%s)
