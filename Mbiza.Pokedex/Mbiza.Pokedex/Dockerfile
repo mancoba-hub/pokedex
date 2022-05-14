@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["Mbiza.Pokedex/Mbiza.Pokedex.csproj", "Mbiza.Pokedex/"]
+COPY ["Mbiza.Pokedex.Services/Mbiza.Pokedex.Services.csproj", "Mbiza.Pokedex.Services/"]
+COPY ["Mbiza.Pokedex.Utils/Mbiza.Pokedex.Utils.csproj", "Mbiza.Pokedex.Utils/"]
+COPY ["Mbiza.Pokedex.Models/Mbiza.Pokedex.Models.csproj", "Mbiza.Pokedex.Models/"]
 RUN dotnet restore "Mbiza.Pokedex/Mbiza.Pokedex.csproj"
 COPY . .
 WORKDIR "/src/Mbiza.Pokedex"

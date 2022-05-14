@@ -61,7 +61,7 @@ namespace Mbiza.Pokedex
             var pokemonList = await _pokeApiClient.GetPokemonList(limit, offset);
             foreach(var pokemon in pokemonList)
             {
-                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
+                pokemons.Add(new ModelPokemon { Name = pokemon.Name, ImageUrl = pokemon.Url });
             }
             return pokemons;
         }
