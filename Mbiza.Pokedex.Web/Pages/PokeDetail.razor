@@ -1,0 +1,72 @@
+﻿@page "/pokemon/{name}"
+@inject HttpClient Http
+
+<h1>Pokemon Detail - @Name</h1>
+
+@if (Pokemon == null || Pokemon.Name == null)
+{
+    <div class="spinner-grow"></div>
+}
+else
+{
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@Pokemon.Name</h1>
+                </div>
+
+                <div class="card-body text-center">
+                    <img class="card-img-top" src="@Pokemon.ImageUrl" />
+
+                    <h4>Habitat : @Pokemon.Habitat</h4>
+                    <h4>Colour : @Pokemon.Color</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/pokemons" class="btn btn-primary">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private string PokemonName { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    private ModelPokemon Pokemon;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        PokemonName = Name;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pokemon = await Http.GetFromJsonAsync<ModelPokemon>($"https://localhost:44389/pokedex/{Name}");
+
+    }
+
+    public class ModelPokemon
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Habitat { get; set; }
+
+        public string Color { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public bool IsBaby { get; set; }
+
+        public bool IsLegendary { get; set; }
+
+        public bool IsMythical { get; set; }
+    }
+}

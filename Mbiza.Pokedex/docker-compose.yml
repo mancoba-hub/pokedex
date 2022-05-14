@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  mbiza.pokedex:
+    image: ${DOCKER_REGISTRY-}mbizapokedex
+    build:
+      context: .
+      dockerfile: Mbiza.Pokedex/Dockerfile

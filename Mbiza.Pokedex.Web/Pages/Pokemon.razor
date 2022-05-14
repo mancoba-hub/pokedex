@@ -1,0 +1,74 @@
+﻿@page "/pokemons"
+@inject HttpClient Http
+
+<h1>List of Pokemons</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (pokemons == null)
+{
+<p><em>Loading...</em></p>
+}
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pokemon in pokemons)
+        {
+        <tr>
+            <td>
+                <NavLink class="nav-link" href="pokemon">
+                    <span class="oi" aria-hidden="true"></span> @pokemon.Name
+                </NavLink>
+            </td>
+            <td>
+                <button @onclick="@(() => ViewPokemon(@pokemon.Name))">
+                    View
+                </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
+
+@code {
+    private ModelPokemon[] pokemons;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemons = await Http.GetFromJsonAsync<ModelPokemon[]>("https://localhost:44389/pokedex");
+    }
+
+    private void ViewPokemon(string name)
+    {
+    NavigationManager.NavigateTo($"/pokemon/{name}");
+    }
+
+    public class ModelPokemon
+    {
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Habitat { get; set; }
+
+    public string Color { get; set; }
+
+    public string ImageUrl { get; set; }
+
+    public bool IsBaby { get; set; }
+
+    public bool IsLegendary { get; set; }
+
+    public bool IsMythical { get; set; }
+    }
+    }
