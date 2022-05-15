@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.Json;
 using System;
+using System.Text;
 
 namespace Mbiza.Pokedex
 {
@@ -36,16 +37,27 @@ namespace Mbiza.Pokedex
         /// <returns></returns>
         public async Task<ModelPokemon> GetPokemon(string name)
         {
-            var pokemon = await _pokeApiClient.GetPokemon(name);            
+            var pokemon = await _pokeApiClient.GetPokemon(name);
+            var imageFront = pokemon.Sprites.FrontShiny;
+            var imageBack = pokemon.Sprites.BackShiny;
+            var abilities = pokemon.Abilities.Where(x => !x.IsHidden).ToList();
+            StringBuilder abilityList = new StringBuilder();
+            foreach(var ability in abilities)
+            {
+                if (abilityList.Length == 0)
+                    abilityList.Append(ability.Ability.Name);
+                else
+                    abilityList.Append($", {ability.Ability.Name}");
+            }
+            List<string> strList = abilities.Select(x => x.Ability.Name).ToList();
             return new ModelPokemon
             {
                 Id = pokemon.Id,    
                 Name = pokemon.Name,
-                Habitat = pokemon.Habitat.Name,
-                Color = pokemon.Color.Name,
-                IsBaby = pokemon.IsBaby,
-                IsMythical = pokemon.IsMythical,
-                IsLegendary = pokemon.IsLegendary
+                ImageFrontUrl = imageFront,
+                ImageBackUrl = imageBack,
+                Weight = pokemon.Weight.ToString(),
+                Abilities = abilityList.ToString()
             };
         }
 
@@ -61,7 +73,25 @@ namespace Mbiza.Pokedex
             var pokemonList = await _pokeApiClient.GetPokemonList(limit, offset);
             foreach(var pokemon in pokemonList)
             {
-                pokemons.Add(new ModelPokemon { Name = pokemon.Name, ImageUrl = pokemon.Url });
+                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
+            }
+            return pokemons;
+        }
+
+        /// <summary>
+        /// Searches for the pokemons
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<ModelPokemon>> SearchPokemons(string name, int limit, int offset)
+        {
+            List<ModelPokemon> pokemons = new List<ModelPokemon>();
+            var pokemonList = await _pokeApiClient.SearchPokemons(name, limit, offset);
+            foreach (var pokemon in pokemonList)
+            {
+                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
             }
             return pokemons;
         }

@@ -79,6 +79,29 @@ namespace Mbiza.Pokedex
             }
         }
 
+        /// <summary>
+        /// Searches for the pokemons
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/search/{name}")]
+        public async Task<IEnumerable<ModelPokemon>> SearchPokemon(string name)
+        {
+            try
+            {
+                int limit = _configuration["Pokedex:Limit"].ToInt32();
+                int offset = _configuration["Pokedex:Offset"].ToInt32();
+
+                return await _pokedexService.SearchPokemons(name, limit, offset);
+            }
+            catch (Exception exc)
+            {
+                _loggerControler.LogError($"Error occured while getting pokemons : {exc.ToString()}");
+                throw;
+            }
+        }
+
         #endregion
     }
 }

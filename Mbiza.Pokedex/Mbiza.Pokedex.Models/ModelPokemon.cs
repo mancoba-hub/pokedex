@@ -6,16 +6,12 @@
 
         public string Name { get; set; }
 
-        public string Habitat { get; set; }
+        public string Abilities { get; set; }
 
-        public string Color { get; set; }
+        public string Weight { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string ImageFrontUrl { get; set; }
 
-        public bool IsBaby { get; set; }
-
-        public bool IsLegendary { get; set; }
-
-        public bool IsMythical { get; set; }
+        public string ImageBackUrl { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page "/pokemon/{name}"
 @inject HttpClient Http
 
-<h1>Pokemon Detail - @Name</h1>
+<h1>Pokemon Detail</h1>
 
 @if (Pokemon == null || Pokemon.Name == null)
 {
@@ -17,13 +17,14 @@ else
                 </div>
 
                 <div class="card-body text-center">
-                    <img class="card-img-top" src="@Pokemon.ImageUrl" />
+                    <img class="responsive" src="@Pokemon.ImageFrontUrl" />
+                    <img class="responsive" src="@Pokemon.ImageBackUrl" />
 
-                    <h4>Habitat : @Pokemon.Habitat</h4>
-                    <h4>Colour : @Pokemon.Color</h4>
+                    <h4>Abilities : @Pokemon.Abilities</h4>
+                    <h4>Weight : @Pokemon.Weight</h4>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="/pokemons" class="btn btn-primary">Back</a>
+                    <a href="/" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
@@ -57,16 +58,12 @@ else
 
         public string Name { get; set; }
 
-        public string Habitat { get; set; }
+        public string Abilities { get; set; }
 
-        public string Color { get; set; }
+        public string Weight { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string ImageFrontUrl { get; set; }
 
-        public bool IsBaby { get; set; }
-
-        public bool IsLegendary { get; set; }
-
-        public bool IsMythical { get; set; }
+        public string ImageBackUrl { get; set; }
     }
 }

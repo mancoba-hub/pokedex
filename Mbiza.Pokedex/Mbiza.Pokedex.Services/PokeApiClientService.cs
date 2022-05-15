@@ -1,6 +1,7 @@
 ﻿using PokeApiNet;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mbiza.Pokedex
 {
@@ -40,9 +41,9 @@ namespace Mbiza.Pokedex
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<PokemonSpecies> GetPokemon(string name)
+        public async Task<Pokemon> GetPokemon(string name)
         {
-            return await _pokeApiClient.GetResourceAsync<PokemonSpecies>(name);
+            return await _pokeApiClient.GetResourceAsync<Pokemon>(name);
         }
 
         /// <summary>
@@ -58,6 +59,32 @@ namespace Mbiza.Pokedex
 
             var response = await _pokeApiClient.GetNamedResourcePageAsync<Pokemon>(limit, offset);
             return response.Results;
+        }
+
+        /// <summary>
+        /// Searches for the pokemons
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public async Task<List<NamedApiResource<Pokemon>>> SearchPokemons(string name, int limit, int offset)
+        {
+            List<NamedApiResource<Pokemon>> pokemonList = new List<NamedApiResource<Pokemon>>();
+            NamedApiResource<Pokemon> pokemon = new NamedApiResource<Pokemon>();
+            bool canContinue = false;
+            do
+            {
+                pokemonList = await GetPokemonList(limit, offset);
+                pokemonList = pokemonList.Where(x => x.Name.Contains(name)).ToList();
+                if (pokemonList.Any())
+                    canContinue = true;
+                else
+                    offset += limit;
+            }
+            while (!canContinue);
+
+            return pokemonList;
         }
 
         #endregion
