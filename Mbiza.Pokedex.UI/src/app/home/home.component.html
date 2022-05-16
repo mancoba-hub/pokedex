@@ -1,22 +1,19 @@
 <br/>
-<h1>Search for pokemon</h1>
-<mat-card>
-    <img mat-card-md-image src="assets/images/pokemon.png" >
-    <br/>
-    <form class="example-form" id="frmSearch" (submit)="searchName.value">
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Search for pokemon</mat-label>
-            <input matInput placeholder="Eg. bulbasaur" value="" id="search" #searchName>
-        </mat-form-field>
-        <!-- <button mat-button color="primary" (click)="searchPokemon()">Search</button> -->
-        <button type="submit" class="btn btn-default">Search</button>
-    </form>
-</mat-card>
+<h1 class="align">Search for pokemon</h1>
+
+<div class="align">
+    <img src="assets/images/pokemon.png" >
+</div>
+
+<form [formGroup]="searchForm" (submit)="searchPokemon()" class="align">
+    <input type="text" placeholder="Eg. bulbasaur" formControlName="name"/>
+    <button type="submit" value="Search" onclick="searchPokemon()">Search</button>
+</form>
 
 <br/>
 <div style="padding: 13px;">
     <mat-spinner *ngIf="pokemons.length === 0"></mat-spinner>
-    <mat-card *ngFor="let pokemon of pokemons" style="margin-top:10px;">
+    <mat-card *ngFor="let pokemon of pokemons" class="mt-2 grid_margin">
         <mat-card-header>
             <mat-card-title>{{pokemon.name}}</mat-card-title>
         </mat-card-header>
@@ -24,4 +21,5 @@
             <button mat-button (click)="viewDetail(pokemon.name)">view</button>
         </mat-card-actions>
     </mat-card>
+
 </div>
