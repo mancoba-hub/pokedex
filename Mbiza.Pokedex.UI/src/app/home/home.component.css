@@ -5,3 +5,33 @@
 .grid_margin {
     margin-top: 10px;
 }
+
+.space {
+    width: 4px;
+    height: auto;
+    display: inline-block;
+  }
+
+  .button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 2px;
+  }
+
+  .button_small {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 1px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 2px;
+  }

@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getPokemons().subscribe(response => {
       this.pokemons = response;
-    })
+    });
     this.createForm(this.pokemon);
   }
 
@@ -40,7 +40,13 @@ export class HomeComponent implements OnInit {
     var searchText = this.searchForm.controls['name'].value  
     this.apiService.searchPokemons(searchText).subscribe(response => {
       this.pokemons = response;
-    })
+    });
+  }
+
+  listPokemon() {      
+    this.apiService.getPokemons().subscribe(response => {
+      this.pokemons = response;
+    });
   }
 
   createForm(pokemon: Pokemon): void {

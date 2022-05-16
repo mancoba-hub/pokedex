@@ -7,19 +7,27 @@
 
 <form [formGroup]="searchForm" (submit)="searchPokemon()" class="align">
     <input type="text" placeholder="Eg. bulbasaur" formControlName="name"/>
-    <button type="submit" value="Search" onclick="searchPokemon()">Search</button>
+    <div class="space"></div>
+    <button type="submit" value="Search" onclick="searchPokemon()" class="button">Search</button>
+    <div class="space"></div>
+    <button type="button" value="List" (click)="listPokemon()" class="button">View List</button>    
 </form>
 
 <br/>
-<div style="padding: 13px;">
-    <mat-spinner *ngIf="pokemons.length === 0"></mat-spinner>
-    <mat-card *ngFor="let pokemon of pokemons" class="mt-2 grid_margin">
-        <mat-card-header>
-            <mat-card-title>{{pokemon.name}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-            <button mat-button (click)="viewDetail(pokemon.name)">view</button>
-        </mat-card-actions>
-    </mat-card>
 
+<mat-spinner *ngIf="pokemons.length === 0"></mat-spinner>
+
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">        
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let pokemon of pokemons" class="mt-2 grid_margin">
+            <mat-card class="mat-elevation-z4">
+                <mat-card-header>
+                    <mat-card-title>{{pokemon.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                    <button mat-button (click)="viewDetail(pokemon.name)" class="button_small">view</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
 </div>
