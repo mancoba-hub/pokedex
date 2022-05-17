@@ -45,14 +45,15 @@ describe('HomeComponent', () => {
   });
 
   it('should set the pokemons when getPokemon method is called', () => {
-    var pokemonName = '';
+    pokemon = { id : 1, name : 'one', abilities : 'swim', weight : '400', imageFrontUrl : '', imageBackUrl : '', stats: ''};
     component.pokemon.id = 1;
     component.pokemon.name = 'one';
     component.pokemon.abilities = 'swim';
     component.pokemon.weight = '40';
     component.pokemon.imageBackUrl = '';
     component.pokemon.imageFrontUrl = '';
-    component.viewDetail(pokemonName);
+    component.pokemon.stats = '';
+    component.viewDetail(pokemon);
     expect(component.pokemon).toHaveClass;
   });
 });

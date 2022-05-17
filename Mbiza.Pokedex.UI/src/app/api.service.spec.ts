@@ -22,9 +22,9 @@ describe('ApiService', () => {
   it('should invoke http method and return data when getPokemons method is called', () => {
     //Arrange
     const pokemonList: Pokemon[] = [
-      { id : 1, name : 'one', abilities : 'swim', weight : '400', imageFrontUrl : '', imageBackUrl : ''},
-      { id : 2, name : 'two', abilities : 'fly', weight : '500', imageFrontUrl : '', imageBackUrl : ''},
-      { id : 3, name : 'three', abilities : 'walk', weight : '600', imageFrontUrl : '', imageBackUrl : ''},
+      { id : 1, name : 'one', abilities : 'swim', weight : '400', imageFrontUrl : '', imageBackUrl : '', stats: ''},
+      { id : 2, name : 'two', abilities : 'fly', weight : '500', imageFrontUrl : '', imageBackUrl : '', stats: ''},
+      { id : 3, name : 'three', abilities : 'walk', weight : '600', imageFrontUrl : '', imageBackUrl : '', stats: ''},
     ];
 
     const httpService = TestBed.get(HttpClient);
@@ -43,7 +43,7 @@ describe('ApiService', () => {
     //Arrange
     const name = 'two'
     const pokemonList: Pokemon[] = [
-      { id : 2, name : 'two', abilities : 'fly', weight : '500', imageFrontUrl : '', imageBackUrl : ''},
+      { id : 2, name : 'two', abilities : 'fly', weight : '500', imageFrontUrl : '', imageBackUrl : '', stats: ''},
     ];
     const httpService = TestBed.get(HttpClient);
     
@@ -60,7 +60,7 @@ describe('ApiService', () => {
   it('should invoke http method and return data when getPokemon method is called', () => {
     //Arrange
     const name = 'one'
-    const pokemon: Pokemon = { id : 1, name : 'one', abilities : 'swim', weight : '400', imageFrontUrl : '', imageBackUrl : ''};
+    const pokemon: Pokemon = { id : 1, name : 'one', abilities : 'swim', weight : '400', imageFrontUrl : '', imageBackUrl : '', stats: ''};
     const httpService = TestBed.get(HttpClient);
     
     spyOn(httpService, "getPokemon").and.returnValue(pokemon);
