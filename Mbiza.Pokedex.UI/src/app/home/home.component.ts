@@ -32,8 +32,17 @@ export class HomeComponent implements OnInit {
     this.createForm(this.pokemon);
   }
 
-  viewDetail(name: string) {
-    this.router.navigate(['detail/', {name: name }]);
+  viewDetail(pokemon: Pokemon) {
+    // var pokedetail = {
+    //             'id': pokemon.id,
+    //             'name': pokemon.name, 
+    //             'imageFrontUrl': pokemon.imageFrontUrl, 
+    //             'imageBackUrl': pokemon.imageBackUrl,
+    //             'abilities': pokemon.abilities,
+    //             'weight': pokemon.weight,
+    //             'stats': pokemon.stats
+    //           }
+    this.router.navigate(['detail/', {'name': pokemon.name }]);
   }
 
   searchPokemon() {      

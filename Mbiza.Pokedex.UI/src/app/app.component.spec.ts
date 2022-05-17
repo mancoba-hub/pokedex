@@ -20,16 +20,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'mbiza.pokedex.ui'`, () => {
+  it(`should have as title 'Pokedex by Liso Mbiza'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('mbiza.pokedex.ui');
+    expect(app.title).toEqual('Pokedex by Liso Mbiza');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('mbiza.pokedex.ui app is running!');
+
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Liso Mbiza - Pokedex');    
   });
 });

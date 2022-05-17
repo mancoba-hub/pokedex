@@ -5,6 +5,7 @@ export class Pokemon {
     public weight: string;
     public imageFrontUrl: string;
     public imageBackUrl: string;
+    public stats: string;
     constructor 
     (
         // public id: number,
@@ -21,5 +22,6 @@ export class Pokemon {
         this.weight = '';
         this.imageFrontUrl = '';
         this.imageBackUrl = '';
+        this.stats = '';
     }
 }

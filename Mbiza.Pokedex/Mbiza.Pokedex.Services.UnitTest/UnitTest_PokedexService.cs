@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokeApiNet;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -43,9 +44,12 @@ namespace Mbiza.Pokedex.Services.UnitTest
             int offset = 0;
             _pokedexServiceMock.Setup(x => x.GetPokemonList(It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(It.IsAny<IEnumerable<ModelPokemon>>()));
 
-            var pokemonList = GetPokemonList();
-
+            var pokemonList = GetPokemonList().Take(1).ToList();
             _pokeapiClientMock.Setup(x => x.GetPokemonList(It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(pokemonList));
+
+            Pokemon pokemon = JsonSerializer.Deserialize<Pokemon>(_pokemonDetails);
+            _pokeapiClientMock.Setup(x => x.GetPokemon(It.IsAny<string>())).Returns(Task.FromResult(pokemon));
+            _pokedexServiceMock.Setup(x => x.GetPokemon(It.IsAny<string>())).Returns(Task.FromResult(It.IsAny<ModelPokemon>()));
 
             IPokedexService pokedexService = new PokedexService(_pokeapiClientMock.Object);
 
@@ -54,6 +58,11 @@ namespace Mbiza.Pokedex.Services.UnitTest
 
             //Assert
             Assert.IsNotNull(response);
+            Assert.IsTrue(response.Any());
+
+            var model = response.FirstOrDefault();
+            Assert.IsNotNull(model.Name);
+            Assert.IsNotNull(model.ImageFrontUrl);
         }
 
         [TestMethod]
@@ -65,9 +74,12 @@ namespace Mbiza.Pokedex.Services.UnitTest
             string pokemonName = "bulbasaur";
             _pokedexServiceMock.Setup(x => x.SearchPokemons(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(It.IsAny<IEnumerable<ModelPokemon>>()));
 
-            var pokemonList = GetPokemonList();
-
+            var pokemonList = GetPokemonList().Take(1).ToList();
             _pokeapiClientMock.Setup(x => x.SearchPokemons(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(Task.FromResult(pokemonList));
+
+            Pokemon pokemon = JsonSerializer.Deserialize<Pokemon>(_pokemonDetails);
+            _pokeapiClientMock.Setup(x => x.GetPokemon(It.IsAny<string>())).Returns(Task.FromResult(pokemon));
+            _pokedexServiceMock.Setup(x => x.GetPokemon(It.IsAny<string>())).Returns(Task.FromResult(It.IsAny<ModelPokemon>()));
 
             IPokedexService pokedexService = new PokedexService(_pokeapiClientMock.Object);
 
@@ -76,6 +88,11 @@ namespace Mbiza.Pokedex.Services.UnitTest
 
             //Assert
             Assert.IsNotNull(response);
+            Assert.IsTrue(response.Any());
+
+            var model = response.FirstOrDefault();
+            Assert.IsNotNull(model.Name);
+            Assert.IsNotNull(model.ImageFrontUrl);
         }
 
         [TestMethod]

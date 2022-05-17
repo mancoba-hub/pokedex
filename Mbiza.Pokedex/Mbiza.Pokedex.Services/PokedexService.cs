@@ -38,10 +38,10 @@ namespace Mbiza.Pokedex
         public async Task<ModelPokemon> GetPokemon(string name)
         {
             var pokemon = await _pokeApiClient.GetPokemon(name);
-            var imageFront = pokemon.Sprites.FrontShiny;
-            var imageBack = pokemon.Sprites.BackShiny;
             var abilities = pokemon.Abilities.Where(x => !x.IsHidden).ToList();
+            var statList = pokemon.Stats.Where(x => x.Effort == 1).ToList();
             StringBuilder abilityList = new StringBuilder();
+            StringBuilder stats = new StringBuilder();
             foreach(var ability in abilities)
             {
                 if (abilityList.Length == 0)
@@ -49,15 +49,22 @@ namespace Mbiza.Pokedex
                 else
                     abilityList.Append($", {ability.Ability.Name}");
             }
-            List<string> strList = abilities.Select(x => x.Ability.Name).ToList();
+            foreach (var stat in statList)
+            {
+                if (stats.Length == 0)
+                    stats.Append(stat.Stat.Name);
+                else
+                    stats.Append($", {stat.Stat.Name}");
+            }
             return new ModelPokemon
             {
                 Id = pokemon.Id,    
                 Name = pokemon.Name,
-                ImageFrontUrl = imageFront,
-                ImageBackUrl = imageBack,
+                ImageFrontUrl = pokemon.Sprites.FrontShiny,
+                ImageBackUrl = pokemon.Sprites.BackShiny,
                 Weight = pokemon.Weight.ToString(),
-                Abilities = abilityList.ToString()
+                Abilities = abilityList.ToString(),
+                Stats = stats.ToString()
             };
         }
 
@@ -73,7 +80,8 @@ namespace Mbiza.Pokedex
             var pokemonList = await _pokeApiClient.GetPokemonList(limit, offset);
             foreach(var pokemon in pokemonList)
             {
-                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
+                var detail = await GetPokemon(pokemon.Name);
+                pokemons.Add(detail);
             }
             return pokemons;
         }
@@ -91,7 +99,8 @@ namespace Mbiza.Pokedex
             var pokemonList = await _pokeApiClient.SearchPokemons(name, limit, offset);
             foreach (var pokemon in pokemonList)
             {
-                pokemons.Add(new ModelPokemon { Name = pokemon.Name });
+                var detail = await GetPokemon(pokemon.Name);
+                pokemons.Add(detail);
             }
             return pokemons;
         }

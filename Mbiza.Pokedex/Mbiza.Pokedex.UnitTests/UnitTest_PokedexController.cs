@@ -136,11 +136,11 @@ namespace Mbiza.Pokedex.UnitTests
             {
                 Id = 71,
                 Name = "victreebel",
-                Color = "green",
-                Habitat = "forest",
-                IsBaby = false,
-                IsLegendary = false,
-                IsMythical = false
+                ImageFrontUrl = "green",
+                ImageBackUrl = "forest",
+                Weight = "",
+                Stats = "",
+                Abilities = ""
             };
         }
 

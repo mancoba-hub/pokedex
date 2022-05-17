@@ -13,5 +13,7 @@
         public string ImageFrontUrl { get; set; }
 
         public string ImageBackUrl { get; set; }
+
+        public string Stats { get; set; }
     }
 }

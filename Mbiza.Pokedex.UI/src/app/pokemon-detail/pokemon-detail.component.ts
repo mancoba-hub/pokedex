@@ -9,7 +9,13 @@ import { ApiService } from '../api.service';
   styleUrls: ['./pokemon-detail.component.css']
 })
 export class PokemonDetailComponent implements OnInit {
+  id: number = 0;
   name: string = '';
+  imageFrontUrl: string = '';
+  imageBackUrl: string = '';
+  weight: string = '';
+  stats: string = '';
+  abilities: string = '';
   pokemon: Pokemon;
 
   constructor(private route: ActivatedRoute, 
@@ -20,12 +26,12 @@ export class PokemonDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.name = String(params.get('name'));
+      this.name = String(params.get('name'));     
     });
-
+    // this.pokemon = {id: this.id, name : this.name, imageFrontUrl: this.imageFrontUrl, imageBackUrl: this.imageBackUrl, abilities: this.abilities, weight: this.weight, stats: this.stats};
     this.apiService.getPokemon(this.name).subscribe(pokemon => {
       this.pokemon = pokemon;
-    })
+    });
   }
 
   back() {
